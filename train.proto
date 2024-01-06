@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package train;
+option go_package = "github.com/Nityanand44/train-ticketing";
+
+service TrainService {
+  rpc PurchaseTicket(TicketRequest) returns (Receipt);
+  rpc GetReceiptDetails(User) returns (Receipt);
+  rpc GetSectionDetails(SectionRequest) returns (SectionDetails);
+  rpc RemoveUser(User) returns (RemoveUserResponse);
+  rpc ModifyUserSeat(ModifySeatRequest) returns (Receipt);
+}
+
+message TicketRequest {
+  string from = 1;
+  string to = 2;
+  User user = 3;
+}
+
+message User {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  string seat = 4; 
+}
+
+message Receipt {
+  string from = 1;
+  string to = 2;
+  User user = 3;
+  float price_paid = 4;
+  string seat = 5;
+}
+
+message SectionRequest {
+  string section = 1;
+}
+
+message SectionDetails {
+  repeated User users = 1;
+}
+
+message ModifySeatRequest {
+  User user = 1;
+  string new_seat = 2;
+}
+
+message RemoveUserResponse {
+  bool success = 1;
+}
+
